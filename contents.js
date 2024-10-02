@@ -308,6 +308,14 @@ const format_schedule = (schedule_str) => {
   return Object.keys(obj).length ? obj : schedule_str_original;
 };
 
+const create_button = () => {
+  return create_button({
+    innerText: lang == "ja" ? "時間割を表示" : "Show Timetable",
+    id: "show-timetable-button",
+    class_list: ["show-timetable-button"],
+  });
+};
+
 window.addEventListener("load", () => {
   const format = document.getElementsByClassName("coursecard")[0]
     ? "card"
@@ -341,9 +349,27 @@ window.addEventListener("load", () => {
         };
   });
 
-  document
-    .getElementById("coursememo")
-    .insertAdjacentElement("afterend", create_timetable(course_arr));
+  const mynavibutton = document.getElementById("mynavibutton");
+  const button = create_button();
+  mynavibutton.insertAdjacentElement("afterend", button);
+
+  // 時間割要素を生成（ただし最初は非表示）
+  const timetable = create_timetable(course_arr);
+  timetable.style.display = "none"; // 初期状態では非表示
+  button.insertAdjacentElement("afterend", timetable);
+
+  // ボタンにホバーイベントを追加
+  button.addEventListener("mouseenter", () => {
+    timetable.style.display = "block"; // ホバー時に表示
+  });
+
+  button.addEventListener("mouseleave", () => {
+    timetable.style.display = "none"; // ホバー解除時に非表示
+  });
+
+  // document
+  //   .getElementById("coursememo")
+  //   .insertAdjacentElement("afterend", create_timetable(course_arr));
 
   if (
     selected.year == undefined ||

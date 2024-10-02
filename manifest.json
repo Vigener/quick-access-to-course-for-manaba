@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Quick Manaba Links",
+  "version": "1.0.0",
+  "description": "Add quick links to Manaba Course pages",
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "css": ["style/style.css"],
+      "matches": ["https://manaba.tsukuba.ac.jp/ct/home*"]
+    }
+  ]
+}
